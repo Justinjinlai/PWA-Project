@@ -1,0 +1,9 @@
+{
+  "model": "BMW F90 M5",
+  "horsepower": "600 HP",
+  "topSpeed": "155 mph (limited)",
+  "engine": "4.4L V8 Twin Turbo",
+  "transmission": "8-speed M Steptronic",
+  "drivetrain": "xDrive AWD",
+  "acceleration": "0-60 mph in 3.2s"
+}
