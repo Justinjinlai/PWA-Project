@@ -1,32 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hello PWA</title>
-    <link rel="manifest" href="manifest.json" />
-    <style>
-      body {
-        font-family: sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background-color: #f0f0f0;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BMW F90 M5</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #1a1a1a;
+      color: #fff;
+    }
+    canvas {
+      border: 2px solid #fff;
+      margin-top: 20px;
+    }
+    .controls {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    button {
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>BMW F90 M5 Interactive Viewer</h1>
+  <canvas id="bmwCanvas" width="300" height="200"></canvas>
+  <div class="controls">
+    <button onclick="drawCar()">Display Car</button>
+    <button onclick="playEngineSound()">Play Engine Sound</button>
+    <button onclick="showFacts()">Show Quick Facts</button>
+  </div>
 
-      h1 {
-        color: #333;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js');
-      }
-    </script>
-  </body>
+  <audio id="engineSound" src="sounds/engine.mp3"></audio>
+
+  <script>
+    const canvas = document.getElementById('bmwCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function drawCar() {
+      const img = new Image();
+      img.src = 'images/f90-m5.png';
+      img.onload = () => ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    }
+
+    function playEngineSound() {
+      const sound = document.getElementById('engineSound');
+      sound.play();
+    }
+
+    async function showFacts() {
+      const response = await fetch('data/facts.json');
+      const facts = await response.json();
+      alert(`Model: ${facts.model}\nHorsepower: ${facts.horsepower}\nTop Speed: ${facts.topSpeed}`);
+    }
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
+  </script>
+</body>
 </html>
