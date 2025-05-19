@@ -3,70 +3,69 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BMW F90 M5</title>
+  <meta name="theme-color" content="#4CAF50" />
+  <title>Monkey Explorer</title>
   <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      font-family: sans-serif;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background-color: #1a1a1a;
-      color: #fff;
-    }
-    canvas {
-      border: 2px solid #fff;
-      margin-top: 20px;
-    }
-    .controls {
-      margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    button {
-      padding: 10px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>BMW F90 M5 Interactive Viewer</h1>
-  <canvas id="bmwCanvas" width="300" height="200"></canvas>
-  <div class="controls">
-    <button onclick="drawCar()">Display Car</button>
-    <button onclick="playEngineSound()">Play Engine Sound</button>
-    <button onclick="showFacts()">Show Quick Facts</button>
+  <div class="container">
+    <header>
+      <h1>🐒 Monkey Explorer</h1>
+      <p>Learn fun facts about gorillas and capuchin monkeys!</p>
+    </header>
+
+    <canvas id="monkeyCanvas" width="300" height="300"></canvas>
+
+    <main>
+      <section class="monkey-section">
+        <h2>Gorilla</h2>
+        <img src="gorilla.jpg" alt="Gorilla" class="monkey-img" />
+        <p class="fact">Gorillas are the largest primates in the world. They live in forests in central Africa and are known for their strength, intelligence, and gentle nature. Gorillas live in family groups called troops, led by a dominant male known as a silverback. They mostly eat fruits, leaves, and plants, and they communicate using sounds, gestures, and facial expressions.</p>
+        <audio controls>
+          <source src="gorilla.mp4" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </section>
+
+      <section class="monkey-section">
+        <h2>Capuchin Monkey</h2>
+        <img src="capuchin.jpg" alt="Capuchin Monkey" class="monkey-img" />
+        <p class="fact">Capuchin monkeys are small, clever primates known for their curiosity and intelligence. They live in Central and South America and are often seen using tools, solving problems, and working together in groups. Capuchins have long tails, expressive faces, and are very social. Because of their smart behavior, they are often featured in movies and research studies.</p>
+        <audio controls>
+          <source src="capuchin.mp4" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Monkey Explorer. Learn and have fun!</p>
+    </footer>
   </div>
 
-  <audio id="engineSound" src="sounds/engine.mp3"></audio>
-
   <script>
-    const canvas = document.getElementById('bmwCanvas');
-    const ctx = canvas.getContext('2d');
-
-    function drawCar() {
+    // Draw first monkey image on canvas
+    function drawMonkeyOnCanvas(imagePath) {
+      const canvas = document.getElementById('monkeyCanvas');
+      const ctx = canvas.getContext('2d');
       const img = new Image();
-      img.src = 'images/f90-m5.png';
-      img.onload = () => ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      img.src = imagePath;
+      img.onload = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      };
     }
 
-    function playEngineSound() {
-      const sound = document.getElementById('engineSound');
-      sound.play();
-    }
+    drawMonkeyOnCanvas('baboon.jpg'); // Automatically show monkey on load
 
-    async function showFacts() {
-      const response = await fetch('data/facts.json');
-      const facts = await response.json();
-      alert(`Model: ${facts.model}\nHorsepower: ${facts.horsepower}\nTop Speed: ${facts.topSpeed}`);
-    }
-
+    // Register service worker
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js');
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(reg => console.log('Service Worker Registered'))
+          .catch(err => console.error('Service Worker Error', err));
+      });
     }
   </script>
 </body>
