@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Gorilla",
+    "text": "Gorillas are the largest primates in the world. They live in forests in central Africa and are known for their strength, intelligence, and gentle nature. Gorillas live in family groups called troops, led by a dominant male known as a silverback. They mostly eat fruits, leaves, and plants, and they communicate using sounds, gestures, and facial expressions.",
+    "image": "gorilla.jpg",
+    "audio": "gorilla.mp4"
+  },
+  {
+    "title": "Capuchin Monkey",
+    "text": "Capuchin monkeys are small, clever primates known for their curiosity and intelligence. They live in Central and South America and are often seen using tools, solving problems, and working together in groups. Capuchins have long tails, expressive faces, and are very social.",
+    "image": "capuchin.jpg",
+    "audio": "capuchin.mp4"
+  }
+]
